@@ -1,0 +1,5 @@
+streamlit
+inference-sdk
+pillow==10.4.0
+reportlab
+google-genai
