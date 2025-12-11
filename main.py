@@ -176,7 +176,7 @@ def draw_annotations(image, predictions):
         except AttributeError:
              text_width, text_height = draw.textsize(label, font=font)
              
-        text_y_min = y_min - text_height - 2
+        text_y_min = y_min - text_height - 10
         
         draw.rectangle([x_min, text_y_min, x_min + text_width, y_min], fill=color)
         draw.text((x_min, text_y_min), label, fill="white", font=font)
