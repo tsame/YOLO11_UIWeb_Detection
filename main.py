@@ -151,7 +151,7 @@ def draw_annotations(image, predictions):
     draw = ImageDraw.Draw(annotated_image)
     
     try:
-        font = ImageFont.truetype("arial.ttf", size=30) 
+        font = ImageFont.truetype("arial.ttf", size=60) 
     except IOError:
         font = ImageFont.load_default()
 
