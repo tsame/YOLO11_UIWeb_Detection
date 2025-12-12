@@ -24,7 +24,7 @@ from google.genai import types
 # ==============================================================================
 
 # API Key Gemini (Best Practice: Gunakan st.secrets atau variabel lingkungan di produksi)
-GEMINI_API_KEY = "AIzaSyATuvr8Qe0HLyN_2gO9Kq6ODCNZEohFXKg" 
+GEMINI_API_KEY = "AIzaSyCMR3w9GRyYXiWmsmNIph_Sx1BzIfm0yfA" 
 
 # Kredensial Roboflow
 ROBOFLOW_API_KEY = "2jDbzJsXWACR5parVNix"  
