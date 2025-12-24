@@ -1,3 +1,4 @@
+# library yang digunakan
 import streamlit as st
 from inference_sdk import InferenceHTTPClient
 from PIL import Image, ImageDraw, ImageFont
@@ -6,25 +7,18 @@ import os
 import json
 import time
 import shutil 
-
-# ReportLab Imports
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
 from reportlab.lib.units import inch
 from reportlab.platypus import Image as PlatypusImage
-
-# Google GenAI Imports
 from google import genai
 from google.genai import types
 
-# ==============================================================================
-# 0. KONFIGURASI DAN INICIALISASI
-# ==============================================================================
-
-# API Key Gemini (Best Practice: Gunakan st.secrets atau variabel lingkungan di produksi)
-GEMINI_API_KEY = "AIzaSyCjEU_vYHHpsBDtZpV-DmLX2AeIpeRMFnY" 
+# KONFIGURASI API KEY DAN PROJECT ID
+# API Key Gemini
+GEMINI_API_KEY = "AIzaSyD-6UuZkk7kLwvPOqnsDBlzo4Ir4ZDbhkY" 
 
 # Kredensial Roboflow
 ROBOFLOW_API_KEY = "2jDbzJsXWACR5parVNix"  
@@ -32,14 +26,14 @@ PROJECT_ID = "penilaian-ui-web-ax2rc"
 VERSION_NUM = 2
 COMBINED_MODEL_ID = f"{PROJECT_ID}/{int(VERSION_NUM)}"
 
-# --- Konfigurasi Halaman Streamlit ---
+#  Konfigurasi Halaman Streamlit 
 st.set_page_config(
     page_title="Analisis & Penilaian UI Otomatis",
     page_icon="🤖",
     layout="wide"
 )
 
-# --- Inisialisasi Klien (Best Practice: Caching resource) ---
+#  Inisialisasi Klien
 @st.cache_resource
 def load_inference_client(api_key):
     """Membuat klien inferensi Roboflow."""
@@ -66,10 +60,7 @@ def load_gemini_client(api_key):
 roboflow_client = load_inference_client(ROBOFLOW_API_KEY)
 gemini_client = load_gemini_client(GEMINI_API_KEY)
 
-# ==============================================================================
-# 1. FUNGSI PEMROSESAN GAMBAR (Best Practice: Modularity)
-# ==============================================================================
-
+# 1. FUNGSI PEMROSESAN GAMBAR 
 def generate_element_id_map(predictions):
     """
     Menghasilkan peta ID elemen yang konsisten (mis. Button_1, Button_2) 
@@ -121,10 +112,7 @@ def crop_bounding_box(image, prediction):
     cropped_img = image.crop((x_min, y_min, x_max, y_max))
     return cropped_img
 
-# ==============================================================================
-# 2. FUNGSI INFERENSI DAN PENILAIAN
-# ==============================================================================
-
+# 2. FUNGSI DETEKSI ELEMENT WEB
 def perform_roboflow_detection(original_image, model_id):
     """Menjalankan deteksi Roboflow dan mengembalikan hasil prediksi dan gambar anotasi."""
     temp_input_image_path = "temp_input_image_for_pred.jpeg"
@@ -250,10 +238,7 @@ def get_gemini_assessment(image_path, predictions):
         st.error(f"Gagal mendapatkan penilaian dari Gemini: {e}")
         return None
 
-# ==============================================================================
-# 3. FUNGSI PEMBUATAN PDF (Mencakup Bounding Box)
-# ==============================================================================
-
+# 3. FUNGSI PEMBUATAN PDF 
 def generate_pdf_report(scores, annotated_image_path, original_image_pil, raw_predictions, image_name):
     """
     Membuat laporan PDF.
@@ -409,10 +394,7 @@ def generate_pdf_report(scores, annotated_image_path, original_image_pil, raw_pr
     return buffer.getvalue()
 
 
-# ==============================================================================
 # 4. ANTARMUKA UTAMA STREAMLIT
-# ==============================================================================
-
 st.header("🤖 Analisis & Penilaian Desain UI Otomatis")
 
 if not roboflow_client or not gemini_client:
@@ -529,10 +511,7 @@ with col2:
 
 st.divider()
 
-# ==============================================================================
 # 5. UNDUH LAPORAN
-# ==============================================================================
-
 st.header("3. Unduh Laporan")
 
 if st.session_state.get('submitted', False) and st.session_state.get('all_scores'):
