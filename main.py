@@ -18,7 +18,7 @@ from google.genai import types
 
 # KONFIGURASI API KEY DAN PROJECT ID
 # API Key Gemini
-GEMINI_API_KEY = "AIzaSyDtHuQvOgy5CkryLRToh8NmZaQ_GwFH0ig" 
+GEMINI_API_KEY = "AIzaSyCOh9RBIKmya-EXkMdsV4pUNEfgIj1kBks" 
 
 # Kredensial Roboflow
 ROBOFLOW_API_KEY = "2jDbzJsXWACR5parVNix"  
